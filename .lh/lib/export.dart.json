@@ -1,0 +1,34 @@
+{
+    "sourceFile": "lib/export.dart",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 4,
+            "patches": [
+                {
+                    "date": 1669687773067,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1669687837649,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,14 +3,10 @@\n export 'package:exhibition_task/view_models/exhibit_view_model.dart';\n export 'package:flutter/material.dart' hide Router;\n export 'package:provider/provider.dart';\n export 'package:exhibition_task/utils/custom_widgets/helper_widgets.dart';\n-export 'package:flutter/material.dart';\n export 'package:flutter/services.dart';\n-export '../text/normal_text.dart';\n-export 'package:exhibition_task/utils/extensions.dart';\n export 'package:exhibition_task/utils/text/header_1.dart';\n export 'package:exhibition_task/utils/text/header_2.dart';\n export 'package:exhibition_task/utils/text/normal_text.dart';\n export 'package:exhibition_task/view_models/exhibit_view_model.dart';\n-export 'package:flutter/material.dart';\n export 'package:provider/provider.dart';\n"
+                },
+                {
+                    "date": 1669687975569,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,4 +9,5 @@\n export 'package:exhibition_task/utils/text/header_2.dart';\n export 'package:exhibition_task/utils/text/normal_text.dart';\n export 'package:exhibition_task/view_models/exhibit_view_model.dart';\n export 'package:provider/provider.dart';\n+export 'package:exhibition_task/utils/custom_widgets/custom_textfield.dart';\n"
+                },
+                {
+                    "date": 1669688010840,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,4 +10,8 @@\n export 'package:exhibition_task/utils/text/normal_text.dart';\n export 'package:exhibition_task/view_models/exhibit_view_model.dart';\n export 'package:provider/provider.dart';\n export 'package:exhibition_task/utils/custom_widgets/custom_textfield.dart';\n+export 'package:exhibition_task/utils/text/header_1.dart';\n+export 'package:exhibition_task/utils/text/header_2.dart';\n+export 'package:exhibition_task/view_models/exhibit_view_model.dart';\n+export 'package:provider/provider.dart';\n"
+                },
+                {
+                    "date": 1669688055719,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,4 +14,5 @@\n export 'package:exhibition_task/utils/text/header_1.dart';\n export 'package:exhibition_task/utils/text/header_2.dart';\n export 'package:exhibition_task/view_models/exhibit_view_model.dart';\n export 'package:provider/provider.dart';\n+export 'package:exhibition_task/iu/home_with_model.dart';\n"
+                }
+            ],
+            "date": 1669687773067,
+            "name": "Commit-0",
+            "content": "export 'package:exhibition_task/route/route.dart';\nexport 'package:exhibition_task/utils/locator.dart';\nexport 'package:exhibition_task/view_models/exhibit_view_model.dart';\nexport 'package:flutter/material.dart' hide Router;\nexport 'package:provider/provider.dart';\nexport 'package:exhibition_task/utils/custom_widgets/helper_widgets.dart';\nexport 'package:flutter/material.dart';\nexport 'package:flutter/services.dart';\nexport '../text/normal_text.dart';\nexport 'package:exhibition_task/utils/extensions.dart';\nexport 'package:exhibition_task/utils/text/header_1.dart';\nexport 'package:exhibition_task/utils/text/header_2.dart';\nexport 'package:exhibition_task/utils/text/normal_text.dart';\nexport 'package:exhibition_task/view_models/exhibit_view_model.dart';\nexport 'package:flutter/material.dart';\nexport 'package:provider/provider.dart';\n"
+        }
+    ]
+}

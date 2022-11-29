@@ -1,0 +1,22 @@
+{
+    "sourceFile": "lib/services/exhibit_loader.dart",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1669673012466,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1669673412469,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n class GetExhibitionListService {\n   final client = http.Client();\n \n   Future<http.Response> getExhibitList() async {\n-    final response = await client.post(\n+    final response = await client.get(\n         Uri.parse('https://my-json-server.typicode.com/Reyst/exhibit_db/list'));\n \n     return response;\n   }\n"
+                }
+            ],
+            "date": 1669673012466,
+            "name": "Commit-0",
+            "content": "import 'package:http/http.dart' as http;\n\nclass GetExhibitionListService {\n  final client = http.Client();\n\n  Future<http.Response> getExhibitList() async {\n    final response = await client.post(\n        Uri.parse('https://my-json-server.typicode.com/Reyst/exhibit_db/list'));\n\n    return response;\n  }\n}\n"
+        }
+    ]
+}

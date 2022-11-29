@@ -1,0 +1,18 @@
+{
+    "sourceFile": "lib/view_models/baseview_model.dart",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1669673258586,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1669673258586,
+            "name": "Commit-0",
+            "content": "import 'package:flutter/material.dart';\n\nclass BaseViewModel extends ChangeNotifier {\n  String? errorMessage;\n\n  void clearError() {\n    errorMessage = null;\n  }\n}\n"
+        }
+    ]
+}

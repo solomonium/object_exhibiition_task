@@ -1,0 +1,302 @@
+{
+    "sourceFile": "lib/view_models/exhibit_view_model.dart",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 71,
+            "patches": [
+                {
+                    "date": 1669673389708,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1669674124889,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n class ExhibitionModel extends BaseViewModel {\n   final GetExhibitionListService getExhibitionListService =\n       GetExhibitionListService();\n \n-  Future<dynamic> getHeirachyList() async {\n+  Future<dynamic> getExhibitList() async {\n     final response = await getExhibitionListService.getExhibitList();\n     Map<String, dynamic> jsonResponse = json.decode(response.body);\n     print(jsonResponse);\n     return jsonResponse['data'];\n"
+                },
+                {
+                    "date": 1669674344985,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n       GetExhibitionListService();\n \n   Future<dynamic> getExhibitList() async {\n     final response = await getExhibitionListService.getExhibitList();\n-    Map<String, dynamic> jsonResponse = json.decode(response.body);\n+    List jsonResponse = json.decode(response.body);\n     print(jsonResponse);\n-    return jsonResponse['data'];\n+    return jsonResponse;\n   }\n }\n"
+                },
+                {
+                    "date": 1669674483760,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,10 +10,15 @@\n   final GetExhibitionListService getExhibitionListService =\n       GetExhibitionListService();\n \n   Future<dynamic> getExhibitList() async {\n-    final response = await getExhibitionListService.getExhibitList();\n-    List jsonResponse = json.decode(response.body);\n-    print(jsonResponse);\n+    try {\n+      final response = await getExhibitionListService.getExhibitList();\n+\n+      List jsonResponse = json.decode(response.body);\n+      print(jsonResponse);\n+    } on Exception {\n+      // TODO\n+    }\n     return jsonResponse;\n   }\n }\n"
+                },
+                {
+                    "date": 1669674528685,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,10 +15,10 @@\n       final response = await getExhibitionListService.getExhibitList();\n \n       List jsonResponse = json.decode(response.body);\n       print(jsonResponse);\n-    } on Exception {\n-      // TODO\n+    } on Exception catch (e) {\n+      print('Failed to pick image: $e');\n     }\n-    return jsonResponse;\n+    return;\n   }\n }\n"
+                },
+                {
+                    "date": 1669674539879,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n \n       List jsonResponse = json.decode(response.body);\n       print(jsonResponse);\n     } on Exception catch (e) {\n-      print('Failed to pick image: $e');\n+      print('Failed to fetch data: $e');\n     }\n     return;\n   }\n }\n"
+                },
+                {
+                    "date": 1669674627136,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,10 +15,11 @@\n       final response = await getExhibitionListService.getExhibitList();\n \n       List jsonResponse = json.decode(response.body);\n       print(jsonResponse);\n+      return response.body;\n     } on Exception catch (e) {\n       print('Failed to fetch data: $e');\n     }\n-    return;\n+    return 400;\n   }\n }\n"
+                },
+                {
+                    "date": 1669674857007,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,20 +3,26 @@\n import 'dart:convert';\n \n import 'package:exhibition_task/services/exhibit_loader.dart';\n \n+import '../model/exhibit_model.dart';\n import 'baseview_model.dart';\n \n class ExhibitionModel extends BaseViewModel {\n   final GetExhibitionListService getExhibitionListService =\n       GetExhibitionListService();\n+  Exhibit? exhibit;\n \n   Future<dynamic> getExhibitList() async {\n     try {\n       final response = await getExhibitionListService.getExhibitList();\n \n-      List jsonResponse = json.decode(response.body);\n+      Map<String, dynamic> jsonResponse = json.decode(response.body);\n       print(jsonResponse);\n+      if (jsonResponse.isNotEmpty) {\n+        exhibit = Exhibit.fromJson(jsonResponse);\n+        notifyListeners();\n+      }\n       return response.body;\n     } on Exception catch (e) {\n       print('Failed to fetch data: $e');\n     }\n"
+                },
+                {
+                    "date": 1669674865738,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n       if (jsonResponse.isNotEmpty) {\n         exhibit = Exhibit.fromJson(jsonResponse);\n         notifyListeners();\n       }\n-      return response.body;\n+      return response.statusCode;\n     } on Exception catch (e) {\n       print('Failed to fetch data: $e');\n     }\n     return 400;\n"
+                },
+                {
+                    "date": 1669675230688,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,14 +15,14 @@\n   Future<dynamic> getExhibitList() async {\n     try {\n       final response = await getExhibitionListService.getExhibitList();\n \n-      Map<String, dynamic> jsonResponse = json.decode(response.body);\n+      List jsonResponse = json.decode(response.body);\n       print(jsonResponse);\n-      if (jsonResponse.isNotEmpty) {\n-        exhibit = Exhibit.fromJson(jsonResponse);\n-        notifyListeners();\n-      }\n+      // if (jsonResponse.isNotEmpty) {\n+      //   exhibit = Exhibit.fromJson(jsonResponse);\n+      //   notifyListeners();\n+      // }\n       return response.statusCode;\n     } on Exception catch (e) {\n       print('Failed to fetch data: $e');\n     }\n"
+                },
+                {
+                    "date": 1669675465684,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,14 +15,14 @@\n   Future<dynamic> getExhibitList() async {\n     try {\n       final response = await getExhibitionListService.getExhibitList();\n \n-      List jsonResponse = json.decode(response.body);\n+      Map<String, dynamic> jsonResponse = json.decode(response.body);\n       print(jsonResponse);\n-      // if (jsonResponse.isNotEmpty) {\n-      //   exhibit = Exhibit.fromJson(jsonResponse);\n-      //   notifyListeners();\n-      // }\n+      if (jsonResponse.isNotEmpty) {\n+        exhibit = Exhibit.fromJson(jsonResponse);\n+        notifyListeners();\n+      }\n       return response.statusCode;\n     } on Exception catch (e) {\n       print('Failed to fetch data: $e');\n     }\n"
+                },
+                {
+                    "date": 1669675511857,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n \n       Map<String, dynamic> jsonResponse = json.decode(response.body);\n       print(jsonResponse);\n       if (jsonResponse.isNotEmpty) {\n-        exhibit = Exhibit.fromJson(jsonResponse);\n+        exhibit = Exhibit.fromJson(jsonResponse[0]);\n         notifyListeners();\n       }\n       return response.statusCode;\n     } on Exception catch (e) {\n"
+                },
+                {
+                    "date": 1669675773917,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n       if (jsonResponse.isNotEmpty) {\n         exhibit = Exhibit.fromJson(jsonResponse[0]);\n         notifyListeners();\n       }\n-      return response.statusCode;\n+      return response.body;\n     } on Exception catch (e) {\n       print('Failed to fetch data: $e');\n     }\n     return 400;\n"
+                },
+                {
+                    "date": 1669675828257,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n   Future<dynamic> getExhibitList() async {\n     try {\n       final response = await getExhibitionListService.getExhibitList();\n \n-      Map<String, dynamic> jsonResponse = json.decode(response.body);\n+      List jsonResponse = json.decode(response.body);\n       print(jsonResponse);\n       if (jsonResponse.isNotEmpty) {\n         exhibit = Exhibit.fromJson(jsonResponse[0]);\n         notifyListeners();\n"
+                },
+                {
+                    "date": 1669675898383,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n       if (jsonResponse.isNotEmpty) {\n         exhibit = Exhibit.fromJson(jsonResponse[0]);\n         notifyListeners();\n       }\n-      return response.body;\n+      return jsonResponse;\n     } on Exception catch (e) {\n       print('Failed to fetch data: $e');\n     }\n     return 400;\n"
+                },
+                {
+                    "date": 1669676127181,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,21 +11,16 @@\n   final GetExhibitionListService getExhibitionListService =\n       GetExhibitionListService();\n   Exhibit? exhibit;\n \n-  Future<dynamic> getExhibitList() async {\n-    try {\n-      final response = await getExhibitionListService.getExhibitList();\n+  Future<List<Exhibit>> getExhibitList() async {\n+    final response = await getExhibitionListService.getExhibitList();\n \n-      List jsonResponse = json.decode(response.body);\n-      print(jsonResponse);\n-      if (jsonResponse.isNotEmpty) {\n-        exhibit = Exhibit.fromJson(jsonResponse[0]);\n-        notifyListeners();\n-      }\n-      return jsonResponse;\n-    } on Exception catch (e) {\n-      print('Failed to fetch data: $e');\n+    List jsonResponse = json.decode(response.body);\n+    print(jsonResponse);\n+    if (jsonResponse.isNotEmpty) {\n+      exhibit = Exhibit.fromJson(jsonResponse[0]);\n+      notifyListeners();\n     }\n-    return 400;\n+    return jsonResponse[0];\n   }\n }\n"
+                },
+                {
+                    "date": 1669676237664,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,11 +16,11 @@\n     final response = await getExhibitionListService.getExhibitList();\n \n     List jsonResponse = json.decode(response.body);\n     print(jsonResponse);\n-    if (jsonResponse.isNotEmpty) {\n-      exhibit = Exhibit.fromJson(jsonResponse[0]);\n-      notifyListeners();\n-    }\n+    // if (jsonResponse.isNotEmpty) {\n+    //   exhibit = Exhibit.fromJson(jsonResponse[0]);\n+    //   notifyListeners();\n+    // }\n     return jsonResponse[0];\n   }\n }\n"
+                },
+                {
+                    "date": 1669676325356,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,13 +14,13 @@\n \n   Future<List<Exhibit>> getExhibitList() async {\n     final response = await getExhibitionListService.getExhibitList();\n \n-    List jsonResponse = json.decode(response.body);\n+    List<Exhibit> jsonResponse = json.decode(response.body);\n     print(jsonResponse);\n     // if (jsonResponse.isNotEmpty) {\n     //   exhibit = Exhibit.fromJson(jsonResponse[0]);\n     //   notifyListeners();\n     // }\n-    return jsonResponse[0];\n+    return jsonResponse;\n   }\n }\n"
+                },
+                {
+                    "date": 1669676383933,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,12 +11,12 @@\n   final GetExhibitionListService getExhibitionListService =\n       GetExhibitionListService();\n   Exhibit? exhibit;\n \n-  Future<List<Exhibit>> getExhibitList() async {\n+  Future<List> getExhibitList() async {\n     final response = await getExhibitionListService.getExhibitList();\n \n-    List<Exhibit> jsonResponse = json.decode(response.body);\n+    List jsonResponse = json.decode(response.body);\n     print(jsonResponse);\n     // if (jsonResponse.isNotEmpty) {\n     //   exhibit = Exhibit.fromJson(jsonResponse[0]);\n     //   notifyListeners();\n"
+                },
+                {
+                    "date": 1669676471905,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,11 +16,11 @@\n     final response = await getExhibitionListService.getExhibitList();\n \n     List jsonResponse = json.decode(response.body);\n     print(jsonResponse);\n-    // if (jsonResponse.isNotEmpty) {\n-    //   exhibit = Exhibit.fromJson(jsonResponse[0]);\n-    //   notifyListeners();\n-    // }\n+    if (jsonResponse.isNotEmpty) {\n+      exhibit = Exhibit.fromJson(jsonResponse[0]);\n+      notifyListeners();\n+    }\n     return jsonResponse;\n   }\n }\n"
+                },
+                {
+                    "date": 1669676541241,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,14 +13,15 @@\n   Exhibit? exhibit;\n \n   Future<List> getExhibitList() async {\n     final response = await getExhibitionListService.getExhibitList();\n-\n-    List jsonResponse = json.decode(response.body);\n-    print(jsonResponse);\n-    if (jsonResponse.isNotEmpty) {\n-      exhibit = Exhibit.fromJson(jsonResponse[0]);\n-      notifyListeners();\n+    if (response.statusCode == 200) {\n+      List jsonResponse = json.decode(response.body);\n+      print(jsonResponse);\n+      if (jsonResponse.isNotEmpty) {\n+        exhibit = Exhibit.fromJson(jsonResponse[0]);\n+        notifyListeners();\n+      }\n     }\n     return jsonResponse;\n   }\n }\n"
+                },
+                {
+                    "date": 1669676599633,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,15 +13,14 @@\n   Exhibit? exhibit;\n \n   Future<List> getExhibitList() async {\n     final response = await getExhibitionListService.getExhibitList();\n-    if (response.statusCode == 200) {\n-      List jsonResponse = json.decode(response.body);\n-      print(jsonResponse);\n-      if (jsonResponse.isNotEmpty) {\n-        exhibit = Exhibit.fromJson(jsonResponse[0]);\n-        notifyListeners();\n-      }\n+\n+    List jsonResponse = json.decode(response.body);\n+    print(jsonResponse);\n+    if (jsonResponse.isNotEmpty) {\n+      exhibit = Exhibit.fromJson(jsonResponse[0]);\n+      notifyListeners();\n     }\n     return jsonResponse;\n   }\n }\n"
+                },
+                {
+                    "date": 1669676820046,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n   final GetExhibitionListService getExhibitionListService =\n       GetExhibitionListService();\n   Exhibit? exhibit;\n \n-  Future<List> getExhibitList() async {\n+  Future<dynamic> getExhibitList() async {\n     final response = await getExhibitionListService.getExhibitList();\n \n     List jsonResponse = json.decode(response.body);\n     print(jsonResponse);\n"
+                },
+                {
+                    "date": 1669676906375,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,8 +18,9 @@\n     List jsonResponse = json.decode(response.body);\n     print(jsonResponse);\n     if (jsonResponse.isNotEmpty) {\n       exhibit = Exhibit.fromJson(jsonResponse[0]);\n+      print('My listsssss $exhibit');\n       notifyListeners();\n     }\n     return jsonResponse;\n   }\n"
+                },
+                {
+                    "date": 1669676962270,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n     List jsonResponse = json.decode(response.body);\n     print(jsonResponse);\n     if (jsonResponse.isNotEmpty) {\n       exhibit = Exhibit.fromJson(jsonResponse[0]);\n-      print('My listsssss $exhibit');\n+      print('My listsssss ${exhibit!.title}');\n       notifyListeners();\n     }\n     return jsonResponse;\n   }\n"
+                },
+                {
+                    "date": 1669677000826,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n     List jsonResponse = json.decode(response.body);\n     print(jsonResponse);\n     if (jsonResponse.isNotEmpty) {\n       exhibit = Exhibit.fromJson(jsonResponse[0]);\n-      print('My listsssss ${exhibit!.title}');\n+      print('My listsssss ${exhibit!.title[0]}');\n       notifyListeners();\n     }\n     return jsonResponse;\n   }\n"
+                },
+                {
+                    "date": 1669677036818,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n     List jsonResponse = json.decode(response.body);\n     print(jsonResponse);\n     if (jsonResponse.isNotEmpty) {\n       exhibit = Exhibit.fromJson(jsonResponse[0]);\n-      print('My listsssss ${exhibit!.title[0]}');\n+      print('My listsssss ${exhibit!.title[1]}');\n       notifyListeners();\n     }\n     return jsonResponse;\n   }\n"
+                },
+                {
+                    "date": 1669677066537,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n     List jsonResponse = json.decode(response.body);\n     print(jsonResponse);\n     if (jsonResponse.isNotEmpty) {\n       exhibit = Exhibit.fromJson(jsonResponse[0]);\n-      print('My listsssss ${exhibit!.title[1]}');\n+      print('My listsssss ${exhibit!.images}');\n       notifyListeners();\n     }\n     return jsonResponse;\n   }\n"
+                },
+                {
+                    "date": 1669677178093,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,11 +15,11 @@\n   Future<dynamic> getExhibitList() async {\n     final response = await getExhibitionListService.getExhibitList();\n \n     List jsonResponse = json.decode(response.body);\n-    print(jsonResponse);\n+    print(jsonResponse.toList());\n     if (jsonResponse.isNotEmpty) {\n-      exhibit = Exhibit.fromJson(jsonResponse[0]);\n+      // exhibit = Exhibit.fromJson(jsonResponse);\n       print('My listsssss ${exhibit!.images}');\n       notifyListeners();\n     }\n     return jsonResponse;\n"
+                },
+                {
+                    "date": 1669677289135,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n   Future<dynamic> getExhibitList() async {\n     final response = await getExhibitionListService.getExhibitList();\n \n     List jsonResponse = json.decode(response.body);\n-    print(jsonResponse.toList());\n+    print(jsonResponse);\n     if (jsonResponse.isNotEmpty) {\n       // exhibit = Exhibit.fromJson(jsonResponse);\n       print('My listsssss ${exhibit!.images}');\n       notifyListeners();\n"
+                },
+                {
+                    "date": 1669677335786,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n     List jsonResponse = json.decode(response.body);\n     print(jsonResponse);\n     if (jsonResponse.isNotEmpty) {\n       // exhibit = Exhibit.fromJson(jsonResponse);\n-      print('My listsssss ${exhibit!.images}');\n+      // print('My listsssss ${exhibit!.images}');\n       notifyListeners();\n     }\n     return jsonResponse;\n   }\n"
+                },
+                {
+                    "date": 1669677452131,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,10 +17,10 @@\n \n     List jsonResponse = json.decode(response.body);\n     print(jsonResponse);\n     if (jsonResponse.isNotEmpty) {\n-      // exhibit = Exhibit.fromJson(jsonResponse);\n-      // print('My listsssss ${exhibit!.images}');\n+      exhibit = Exhibit.fromJson(jsonResponse);\n+      print('My listsssss ${exhibit!.images}');\n       notifyListeners();\n     }\n     return jsonResponse;\n   }\n"
+                },
+                {
+                    "date": 1669680229457,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,8 @@\n     List jsonResponse = json.decode(response.body);\n     print(jsonResponse);\n     if (jsonResponse.isNotEmpty) {\n       exhibit = Exhibit.fromJson(jsonResponse);\n-      print('My listsssss ${exhibit!.images}');\n       notifyListeners();\n     }\n     return jsonResponse;\n   }\n"
+                },
+                {
+                    "date": 1669681216188,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n   final GetExhibitionListService getExhibitionListService =\n       GetExhibitionListService();\n   Exhibit? exhibit;\n \n-  Future<dynamic> getExhibitList() async {\n+  Future<List> getExhibitList() async {\n     final response = await getExhibitionListService.getExhibitList();\n \n     List jsonResponse = json.decode(response.body);\n     print(jsonResponse);\n"
+                },
+                {
+                    "date": 1669682121015,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n // Future<List<Exhibit>> getExhibitList()\n \n import 'dart:convert';\n+import 'dart:developer';\n \n import 'package:exhibition_task/services/exhibit_loader.dart';\n \n import '../model/exhibit_model.dart';\n@@ -12,15 +13,15 @@\n       GetExhibitionListService();\n   Exhibit? exhibit;\n \n   Future<List> getExhibitList() async {\n-    final response = await getExhibitionListService.getExhibitList();\n-\n-    List jsonResponse = json.decode(response.body);\n-    print(jsonResponse);\n-    if (jsonResponse.isNotEmpty) {\n-      exhibit = Exhibit.fromJson(jsonResponse);\n-      notifyListeners();\n+    try {\n+      log('Retrieving photos - remote data...');\n+      // final res = await ApiRequest.get(photoPointer);\n+      final response = await getExhibitionListService.getExhibitList();\n+      return exhibitResponseFromMap(response.body);\n+    } catch (e) {\n+      log('Error fetching photos...');\n+      rethrow;\n     }\n-    return jsonResponse;\n   }\n }\n"
+                },
+                {
+                    "date": 1669682218458,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,13 +13,16 @@\n       GetExhibitionListService();\n   Exhibit? exhibit;\n \n   Future<List> getExhibitList() async {\n+    // final response = await getExhibitionListService.getExhibitList();\n+\n     try {\n       log('Retrieving photos - remote data...');\n       // final res = await ApiRequest.get(photoPointer);\n       final response = await getExhibitionListService.getExhibitList();\n-      return exhibitResponseFromMap(response.body);\n+      List jsonResponse = json.decode(response.body);\n+      return exhibitResponseFromMap(jsonResponse);\n     } catch (e) {\n       log('Error fetching photos...');\n       rethrow;\n     }\n"
+                },
+                {
+                    "date": 1669682287161,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,6 @@\n // Future<List<Exhibit>> getExhibitList()\n \n-import 'dart:convert';\n import 'dart:developer';\n \n import 'package:exhibition_task/services/exhibit_loader.dart';\n \n@@ -19,10 +18,10 @@\n     try {\n       log('Retrieving photos - remote data...');\n       // final res = await ApiRequest.get(photoPointer);\n       final response = await getExhibitionListService.getExhibitList();\n-      List jsonResponse = json.decode(response.body);\n-      return exhibitResponseFromMap(jsonResponse);\n+      // List jsonResponse = json.decode(response.body);\n+      return exhibitResponseFromMap(response.body);\n     } catch (e) {\n       log('Error fetching photos...');\n       rethrow;\n     }\n"
+                },
+                {
+                    "date": 1669683223226,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \n class ExhibitionModel extends BaseViewModel {\n   final GetExhibitionListService getExhibitionListService =\n       GetExhibitionListService();\n-  Exhibit? exhibit;\n+  // Exhibit? exhibit;\n \n   Future<List> getExhibitList() async {\n     // final response = await getExhibitionListService.getExhibitList();\n \n"
+                },
+                {
+                    "date": 1669683245791,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,18 +12,16 @@\n       GetExhibitionListService();\n   // Exhibit? exhibit;\n \n   Future<List> getExhibitList() async {\n-    // final response = await getExhibitionListService.getExhibitList();\n-\n     try {\n       log('Retrieving photos - remote data...');\n       // final res = await ApiRequest.get(photoPointer);\n       final response = await getExhibitionListService.getExhibitList();\n       // List jsonResponse = json.decode(response.body);\n       return exhibitResponseFromMap(response.body);\n     } catch (e) {\n-      log('Error fetching photos...');\n+      log('Error fetching data...');\n       rethrow;\n     }\n   }\n }\n"
+                },
+                {
+                    "date": 1669683528621,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n // Future<List<Exhibit>> getExhibitList()\n \n-import 'dart:developer';\n+import 'dart:convert';\n \n import 'package:exhibition_task/services/exhibit_loader.dart';\n \n import '../model/exhibit_model.dart';\n@@ -9,19 +9,19 @@\n \n class ExhibitionModel extends BaseViewModel {\n   final GetExhibitionListService getExhibitionListService =\n       GetExhibitionListService();\n-  // Exhibit? exhibit;\n+  Exhibit? exhibit;\n \n-  Future<List> getExhibitList() async {\n-    try {\n-      log('Retrieving photos - remote data...');\n-      // final res = await ApiRequest.get(photoPointer);\n-      final response = await getExhibitionListService.getExhibitList();\n-      // List jsonResponse = json.decode(response.body);\n-      return exhibitResponseFromMap(response.body);\n-    } catch (e) {\n-      log('Error fetching data...');\n-      rethrow;\n+  Future<dynamic> getExhibitList() async {\n+    final response = await getExhibitionListService.getExhibitList();\n+\n+    List jsonResponse = json.decode(response.body);\n+    print(jsonResponse.toList());\n+    if (jsonResponse.isNotEmpty) {\n+      // exhibit = Exhibit.fromJson(jsonResponse);\n+      print('My listsssss ${exhibit!.images}');\n+      notifyListeners();\n     }\n+    return jsonResponse;\n   }\n }\n"
+                },
+                {
+                    "date": 1669683548650,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n     List jsonResponse = json.decode(response.body);\n     print(jsonResponse.toList());\n     if (jsonResponse.isNotEmpty) {\n       // exhibit = Exhibit.fromJson(jsonResponse);\n-      print('My listsssss ${exhibit!.images}');\n+      // print('My listsssss ${exhibit!.images}');\n       notifyListeners();\n     }\n     return jsonResponse;\n   }\n"
+                },
+                {
+                    "date": 1669683561816,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,5 +23,18 @@\n       notifyListeners();\n     }\n     return jsonResponse;\n   }\n+\n+  // Future<List> getExhibitList() async {\n+  //   try {\n+  //     log('Retrieving photos - remote data...');\n+  //     // final res = await ApiRequest.get(photoPointer);\n+  //     final response = await getExhibitionListService.getExhibitList();\n+  //     // List jsonResponse = json.decode(response.body);\n+  //     return exhibitResponseFromMap(response.body);\n+  //   } catch (e) {\n+  //     log('Error fetching data...');\n+  //     rethrow;\n+  //   }\n+  // }\n }\n"
+                },
+                {
+                    "date": 1669684021195,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,10 +15,13 @@\n   Future<dynamic> getExhibitList() async {\n     final response = await getExhibitionListService.getExhibitList();\n \n     List jsonResponse = json.decode(response.body);\n-    print(jsonResponse.toList());\n+    // print(jsonResponse.toList());\n     if (jsonResponse.isNotEmpty) {\n+      for (var item in jsonResponse) {\n+        print(item);\n+      }\n       // exhibit = Exhibit.fromJson(jsonResponse);\n       // print('My listsssss ${exhibit!.images}');\n       notifyListeners();\n     }\n"
+                },
+                {
+                    "date": 1669684072351,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,14 +15,16 @@\n   Future<dynamic> getExhibitList() async {\n     final response = await getExhibitionListService.getExhibitList();\n \n     List jsonResponse = json.decode(response.body);\n+\n     // print(jsonResponse.toList());\n     if (jsonResponse.isNotEmpty) {\n       for (var item in jsonResponse) {\n+        // exhibit = Exhibit.fromJson(jsonResponse);\n+\n         print(item);\n       }\n-      // exhibit = Exhibit.fromJson(jsonResponse);\n       // print('My listsssss ${exhibit!.images}');\n       notifyListeners();\n     }\n     return jsonResponse;\n"
+                },
+                {
+                    "date": 1669684081606,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n \n     // print(jsonResponse.toList());\n     if (jsonResponse.isNotEmpty) {\n       for (var item in jsonResponse) {\n-        // exhibit = Exhibit.fromJson(jsonResponse);\n+        exhibit = Exhibit.fromJson(item);\n \n         print(item);\n       }\n       // print('My listsssss ${exhibit!.images}');\n"
+                },
+                {
+                    "date": 1669684101011,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,8 @@\n     // print(jsonResponse.toList());\n     if (jsonResponse.isNotEmpty) {\n       for (var item in jsonResponse) {\n         exhibit = Exhibit.fromJson(item);\n-\n         print(item);\n       }\n       // print('My listsssss ${exhibit!.images}');\n       notifyListeners();\n"
+                },
+                {
+                    "date": 1669684280643,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,8 @@\n       for (var item in jsonResponse) {\n         exhibit = Exhibit.fromJson(item);\n         print(item);\n       }\n-      // print('My listsssss ${exhibit!.images}');\n       notifyListeners();\n     }\n     return jsonResponse;\n   }\n"
+                },
+                {
+                    "date": 1669684516566,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n \n     // print(jsonResponse.toList());\n     if (jsonResponse.isNotEmpty) {\n       for (var item in jsonResponse) {\n-        exhibit = Exhibit.fromJson(item);\n+        exhibit = Exhibit.fromJson(item.toList());\n         print(item);\n       }\n       notifyListeners();\n     }\n"
+                },
+                {
+                    "date": 1669684539312,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n \n     // print(jsonResponse.toList());\n     if (jsonResponse.isNotEmpty) {\n       for (var item in jsonResponse) {\n-        exhibit = Exhibit.fromJson(item.toList());\n+        exhibit = Exhibit.fromJson(item);\n         print(item);\n       }\n       notifyListeners();\n     }\n"
+                },
+                {
+                    "date": 1669684686572,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,9 +24,9 @@\n         print(item);\n       }\n       notifyListeners();\n     }\n-    return jsonResponse;\n+    return;\n   }\n \n   // Future<List> getExhibitList() async {\n   //   try {\n"
+                },
+                {
+                    "date": 1669685213761,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,9 +24,9 @@\n         print(item);\n       }\n       notifyListeners();\n     }\n-    return;\n+    return exhibit;\n   }\n \n   // Future<List> getExhibitList() async {\n   //   try {\n"
+                },
+                {
+                    "date": 1669685820453,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,16 +14,12 @@\n \n   Future<dynamic> getExhibitList() async {\n     final response = await getExhibitionListService.getExhibitList();\n \n-    List jsonResponse = json.decode(response.body);\n+    List jsonResponse = (json.decode(response.body)as List).map((i) =>\n+              Exhibit.fromJson(i)).toList();\n \n-    // print(jsonResponse.toList());\n-    if (jsonResponse.isNotEmpty) {\n-      for (var item in jsonResponse) {\n-        exhibit = Exhibit.fromJson(item);\n-        print(item);\n-      }\n+    \n       notifyListeners();\n     }\n     return exhibit;\n   }\n"
+                },
+                {
+                    "date": 1669685858152,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,16 +14,16 @@\n \n   Future<dynamic> getExhibitList() async {\n     final response = await getExhibitionListService.getExhibitList();\n \n-    List jsonResponse = (json.decode(response.body)as List).map((i) =>\n-              Exhibit.fromJson(i)).toList();\n+    List jsonResponse = (json.decode(response.body) as List)\n+        .map((i) => Exhibit.fromJson(i))\n+        .toList();\n \n-    \n-      notifyListeners();\n-    }\n-    return exhibit;\n+    notifyListeners();\n+    return jsonResponse;\n   }\n+}\n \n   // Future<List> getExhibitList() async {\n   //   try {\n   //     log('Retrieving photos - remote data...');\n@@ -34,6 +34,5 @@\n   //   } catch (e) {\n   //     log('Error fetching data...');\n   //     rethrow;\n   //   }\n-  // }\n-}\n+  // }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1669686060705,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,19 +9,19 @@\n \n class ExhibitionModel extends BaseViewModel {\n   final GetExhibitionListService getExhibitionListService =\n       GetExhibitionListService();\n-  Exhibit? exhibit;\n+  List<Exhibit>? exhibit;\n \n   Future<dynamic> getExhibitList() async {\n     final response = await getExhibitionListService.getExhibitList();\n \n-    List jsonResponse = (json.decode(response.body) as List)\n+    exhibit = (json.decode(response.body) as List)\n         .map((i) => Exhibit.fromJson(i))\n         .toList();\n \n     notifyListeners();\n-    return jsonResponse;\n+    return exhibit;\n   }\n }\n \n   // Future<List> getExhibitList() async {\n"
+                },
+                {
+                    "date": 1669686092412,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,17 +11,17 @@\n   final GetExhibitionListService getExhibitionListService =\n       GetExhibitionListService();\n   List<Exhibit>? exhibit;\n \n-  Future<dynamic> getExhibitList() async {\n+  Future<List<Exhibit>> getExhibitList() async {\n     final response = await getExhibitionListService.getExhibitList();\n \n     exhibit = (json.decode(response.body) as List)\n         .map((i) => Exhibit.fromJson(i))\n         .toList();\n \n     notifyListeners();\n-    return exhibit;\n+    return exhibit!;\n   }\n }\n \n   // Future<List> getExhibitList() async {\n"
+                },
+                {
+                    "date": 1669686474636,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \n class ExhibitionModel extends BaseViewModel {\n   final GetExhibitionListService getExhibitionListService =\n       GetExhibitionListService();\n-  List<Exhibit>? exhibit;\n+  List<Exhibit> exhibit = Exhibit(title: 'title', images: []) as List<Exhibit>;\n \n   Future<List<Exhibit>> getExhibitList() async {\n     final response = await getExhibitionListService.getExhibitList();\n \n@@ -19,9 +19,9 @@\n         .map((i) => Exhibit.fromJson(i))\n         .toList();\n \n     notifyListeners();\n-    return exhibit!;\n+    return exhibit;\n   }\n }\n \n   // Future<List> getExhibitList() async {\n"
+                },
+                {
+                    "date": 1669686597499,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \n class ExhibitionModel extends BaseViewModel {\n   final GetExhibitionListService getExhibitionListService =\n       GetExhibitionListService();\n-  List<Exhibit> exhibit = Exhibit(title: 'title', images: []) as List<Exhibit>;\n+  List<Exhibit>? exhibit;\n \n   Future<List<Exhibit>> getExhibitList() async {\n     final response = await getExhibitionListService.getExhibitList();\n \n@@ -19,9 +19,9 @@\n         .map((i) => Exhibit.fromJson(i))\n         .toList();\n \n     notifyListeners();\n-    return exhibit;\n+    return exhibit!;\n   }\n }\n \n   // Future<List> getExhibitList() async {\n"
+                },
+                {
+                    "date": 1669686889141,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \n class ExhibitionModel extends BaseViewModel {\n   final GetExhibitionListService getExhibitionListService =\n       GetExhibitionListService();\n-  List<Exhibit>? exhibit;\n+  late List<Exhibit>? exhibit;\n \n   Future<List<Exhibit>> getExhibitList() async {\n     final response = await getExhibitionListService.getExhibitList();\n \n"
+                },
+                {
+                    "date": 1669686898484,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \n class ExhibitionModel extends BaseViewModel {\n   final GetExhibitionListService getExhibitionListService =\n       GetExhibitionListService();\n-  late List<Exhibit>? exhibit;\n+  late List<Exhibit> exhibit;\n \n   Future<List<Exhibit>> getExhibitList() async {\n     final response = await getExhibitionListService.getExhibitList();\n \n@@ -19,9 +19,9 @@\n         .map((i) => Exhibit.fromJson(i))\n         .toList();\n \n     notifyListeners();\n-    return exhibit!;\n+    return exhibit;\n   }\n }\n \n   // Future<List> getExhibitList() async {\n"
+                },
+                {
+                    "date": 1669686967726,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \n class ExhibitionModel extends BaseViewModel {\n   final GetExhibitionListService getExhibitionListService =\n       GetExhibitionListService();\n-  late List<Exhibit> exhibit;\n+  late final List<Exhibit> exhibit;\n \n   Future<List<Exhibit>> getExhibitList() async {\n     final response = await getExhibitionListService.getExhibitList();\n \n"
+                },
+                {
+                    "date": 1669687100169,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n \n   Future<List<Exhibit>> getExhibitList() async {\n     final response = await getExhibitionListService.getExhibitList();\n \n-    exhibit = (json.decode(response.body) as List)\n+    List<Exhibit> exhibit = (json.decode(response.body) as List)\n         .map((i) => Exhibit.fromJson(i))\n         .toList();\n \n     notifyListeners();\n"
+                },
+                {
+                    "date": 1669687120470,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n \n   Future<List<Exhibit>> getExhibitList() async {\n     final response = await getExhibitionListService.getExhibitList();\n \n-    List<Exhibit> exhibit = (json.decode(response.body) as List)\n+    exhibit = (json.decode(response.body) as List)\n         .map((i) => Exhibit.fromJson(i))\n         .toList();\n \n     notifyListeners();\n"
+                },
+                {
+                    "date": 1669688631378,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n \n   Future<List<Exhibit>> getExhibitList() async {\n     final response = await getExhibitionListService.getExhibitList();\n \n-    exhibit = (json.decode(response.body) as List)\n+    List<Exhibit> exhibit = (json.decode(response.body) as List)\n         .map((i) => Exhibit.fromJson(i))\n         .toList();\n \n     notifyListeners();\n"
+                },
+                {
+                    "date": 1669688797048,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \n class ExhibitionModel extends BaseViewModel {\n   final GetExhibitionListService getExhibitionListService =\n       GetExhibitionListService();\n-  late final List<Exhibit> exhibit;\n+  List<Exhibit>? exhibit;\n \n   Future<List<Exhibit>> getExhibitList() async {\n     final response = await getExhibitionListService.getExhibitList();\n \n"
+                },
+                {
+                    "date": 1669688979370,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,14 +14,14 @@\n \n   Future<List<Exhibit>> getExhibitList() async {\n     final response = await getExhibitionListService.getExhibitList();\n \n-    List<Exhibit> exhibit = (json.decode(response.body) as List)\n+    exhibit = (json.decode(response.body) as List)\n         .map((i) => Exhibit.fromJson(i))\n         .toList();\n \n     notifyListeners();\n-    return exhibit;\n+    return exhibit!;\n   }\n }\n \n   // Future<List> getExhibitList() async {\n"
+                },
+                {
+                    "date": 1669689064634,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n         .map((i) => Exhibit.fromJson(i))\n         .toList();\n \n     notifyListeners();\n-    return exhibit!;\n+    return exhibit ?? exhibit!.toList();\n   }\n }\n \n   // Future<List> getExhibitList() async {\n"
+                },
+                {
+                    "date": 1669689524017,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n         .map((i) => Exhibit.fromJson(i))\n         .toList();\n \n     notifyListeners();\n-    return exhibit ?? exhibit!.toList();\n+    return exhibit!;\n   }\n }\n \n   // Future<List> getExhibitList() async {\n"
+                },
+                {
+                    "date": 1669689589555,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,8 +21,19 @@\n \n     notifyListeners();\n     return exhibit!;\n   }\n+\n+  Future<List<Exhibit>> getExhibitListFuture() async {\n+    final response = await getExhibitionListService.getExhibitList();\n+\n+    exhibit = (json.decode(response.body) as List)\n+        .map((i) => Exhibit.fromJson(i))\n+        .toList();\n+\n+    notifyListeners();\n+    return exhibit!;\n+  }\n }\n \n   // Future<List> getExhibitList() async {\n   //   try {\n"
+                },
+                {
+                    "date": 1669689603466,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n     notifyListeners();\n     return exhibit!;\n   }\n \n-  Future<List<Exhibit>> getExhibitListFuture() async {\n+  Future<dynamic> getExhibitListFuture() async {\n     final response = await getExhibitionListService.getExhibitList();\n \n     exhibit = (json.decode(response.body) as List)\n         .map((i) => Exhibit.fromJson(i))\n"
+                },
+                {
+                    "date": 1669689613780,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,9 +30,9 @@\n         .map((i) => Exhibit.fromJson(i))\n         .toList();\n \n     notifyListeners();\n-    return exhibit!;\n+    return response;\n   }\n }\n \n   // Future<List> getExhibitList() async {\n"
+                },
+                {
+                    "date": 1669689732826,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,14 +25,14 @@\n \n   Future<dynamic> getExhibitListFuture() async {\n     final response = await getExhibitionListService.getExhibitList();\n \n-    exhibit = (json.decode(response.body) as List)\n+    final jsonResponse = (json.decode(response.body) as List)\n         .map((i) => Exhibit.fromJson(i))\n         .toList();\n \n     notifyListeners();\n-    return response;\n+    return jsonResponse;\n   }\n }\n \n   // Future<List> getExhibitList() async {\n"
+                },
+                {
+                    "date": 1669689758570,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,11 +25,9 @@\n \n   Future<dynamic> getExhibitListFuture() async {\n     final response = await getExhibitionListService.getExhibitList();\n \n-    final jsonResponse = (json.decode(response.body) as List)\n-        .map((i) => Exhibit.fromJson(i))\n-        .toList();\n+    final jsonResponse = json.decode(response.body);\n \n     notifyListeners();\n     return jsonResponse;\n   }\n"
+                }
+            ],
+            "date": 1669673389708,
+            "name": "Commit-0",
+            "content": "// Future<List<Exhibit>> getExhibitList()\n\nimport 'dart:convert';\n\nimport 'package:exhibition_task/services/exhibit_loader.dart';\n\nimport 'baseview_model.dart';\n\nclass ExhibitionModel extends BaseViewModel {\n  final GetExhibitionListService getExhibitionListService =\n      GetExhibitionListService();\n\n  Future<dynamic> getHeirachyList() async {\n    final response = await getExhibitionListService.getExhibitList();\n    Map<String, dynamic> jsonResponse = json.decode(response.body);\n    print(jsonResponse);\n    return jsonResponse['data'];\n  }\n}\n"
+        }
+    ]
+}

@@ -1,0 +1,54 @@
+{
+    "sourceFile": "lib/route/route.dart",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 9,
+            "patches": [
+                {
+                    "date": 1669664792658,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1669664903286,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,7 +5,9 @@\n   static Route<dynamic> generateRoute(RouteSettings settings) {\n     switch (settings.name) {\n       case '/':\n         return MaterialPageRoute(builder: (_) => const MyHomePage());\n+      default:\n+        return MaterialPageRoute(builder: (_) => const MyHomePage());\n     }\n   }\n }\n"
+                },
+                {
+                    "date": 1669680707613,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,13 +1,14 @@\n import 'package:exhibition_task/iu/home.dart';\n+import 'package:exhibition_task/iu/home_with_model.dart';\n import 'package:flutter/material.dart';\n \n class Router {\n   static Route<dynamic> generateRoute(RouteSettings settings) {\n     switch (settings.name) {\n       case '/':\n         return MaterialPageRoute(builder: (_) => const MyHomePage());\n       default:\n-        return MaterialPageRoute(builder: (_) => const MyHomePage());\n+        return MaterialPageRoute(builder: (_) => const HomeWithModel());\n     }\n   }\n }\n"
+                },
+                {
+                    "date": 1669680719154,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,13 +1,12 @@\n-import 'package:exhibition_task/iu/home.dart';\n import 'package:exhibition_task/iu/home_with_model.dart';\n import 'package:flutter/material.dart';\n \n class Router {\n   static Route<dynamic> generateRoute(RouteSettings settings) {\n     switch (settings.name) {\n       case '/':\n-        return MaterialPageRoute(builder: (_) => const MyHomePage());\n+        return MaterialPageRoute(builder: (_) => const HomeWithModel());\n       default:\n         return MaterialPageRoute(builder: (_) => const HomeWithModel());\n     }\n   }\n"
+                },
+                {
+                    "date": 1669681286945,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,12 +1,13 @@\n+import 'package:exhibition_task/iu/home.dart';\n import 'package:exhibition_task/iu/home_with_model.dart';\n import 'package:flutter/material.dart';\n \n class Router {\n   static Route<dynamic> generateRoute(RouteSettings settings) {\n     switch (settings.name) {\n       case '/':\n-        return MaterialPageRoute(builder: (_) => const HomeWithModel());\n+        return MaterialPageRoute(builder: (_) => const MyHomePage());\n       default:\n         return MaterialPageRoute(builder: (_) => const HomeWithModel());\n     }\n   }\n"
+                },
+                {
+                    "date": 1669682654306,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,13 +1,12 @@\n-import 'package:exhibition_task/iu/home.dart';\n import 'package:exhibition_task/iu/home_with_model.dart';\n import 'package:flutter/material.dart';\n \n class Router {\n   static Route<dynamic> generateRoute(RouteSettings settings) {\n     switch (settings.name) {\n       case '/':\n-        return MaterialPageRoute(builder: (_) => const MyHomePage());\n+        return MaterialPageRoute(builder: (_) => const HomeWithModel());\n       default:\n         return MaterialPageRoute(builder: (_) => const HomeWithModel());\n     }\n   }\n"
+                },
+                {
+                    "date": 1669683659689,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,12 +1,13 @@\n+import 'package:exhibition_task/iu/home.dart';\n import 'package:exhibition_task/iu/home_with_model.dart';\n import 'package:flutter/material.dart';\n \n class Router {\n   static Route<dynamic> generateRoute(RouteSettings settings) {\n     switch (settings.name) {\n       case '/':\n-        return MaterialPageRoute(builder: (_) => const HomeWithModel());\n+        return MaterialPageRoute(builder: (_) => const MyHomePage());\n       default:\n         return MaterialPageRoute(builder: (_) => const HomeWithModel());\n     }\n   }\n"
+                },
+                {
+                    "date": 1669684319099,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,13 +1,12 @@\n-import 'package:exhibition_task/iu/home.dart';\n import 'package:exhibition_task/iu/home_with_model.dart';\n import 'package:flutter/material.dart';\n \n class Router {\n   static Route<dynamic> generateRoute(RouteSettings settings) {\n     switch (settings.name) {\n       case '/':\n-        return MaterialPageRoute(builder: (_) => const MyHomePage());\n+        return MaterialPageRoute(builder: (_) => const HomeWithModel());\n       default:\n         return MaterialPageRoute(builder: (_) => const HomeWithModel());\n     }\n   }\n"
+                },
+                {
+                    "date": 1669688068131,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,5 @@\n-import 'package:exhibition_task/iu/home_with_model.dart';\n-import 'package:flutter/material.dart';\n+import 'package:exhibition_task/export.dart';\n \n class Router {\n   static Route<dynamic> generateRoute(RouteSettings settings) {\n     switch (settings.name) {\n"
+                },
+                {
+                    "date": 1669689466083,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,12 @@\n import 'package:exhibition_task/export.dart';\n+import 'package:exhibition_task/iu/home_with_futurebuilder.dart';\n \n class Router {\n   static Route<dynamic> generateRoute(RouteSettings settings) {\n     switch (settings.name) {\n       case '/':\n-        return MaterialPageRoute(builder: (_) => const HomeWithModel());\n+        return MaterialPageRoute(builder: (_) => const MyHomePage());\n       default:\n         return MaterialPageRoute(builder: (_) => const HomeWithModel());\n     }\n   }\n"
+                }
+            ],
+            "date": 1669664792658,
+            "name": "Commit-0",
+            "content": "import 'package:exhibition_task/iu/home.dart';\nimport 'package:flutter/material.dart';\n\nclass Router {\n  static Route<dynamic> generateRoute(RouteSettings settings) {\n    switch (settings.name) {\n      case '/':\n        return MaterialPageRoute(builder: (_) => const MyHomePage());\n    }\n  }\n}\n"
+        }
+    ]
+}

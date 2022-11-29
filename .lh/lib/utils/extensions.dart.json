@@ -1,0 +1,18 @@
+{
+    "sourceFile": "lib/utils/extensions.dart",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1669665160407,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1669665160407,
+            "name": "Commit-0",
+            "content": "import 'dart:math';\n\nimport 'package:flutter/material.dart';\n\nextension VerticalHorizontalSpace on num {\n  SizedBox get vSpace => SizedBox(height: toDouble());\n  SizedBox get hSpace => SizedBox(width: toDouble());\n}\n\nextension SizedContext on BuildContext {\n  /// Returns same as MediaQuery.of(context)\n  MediaQueryData get mq => MediaQuery.of(this);\n\n  /// Returns if Orientation is landscape\n  bool get isLandscape => mq.orientation == Orientation.landscape;\n\n  /// Returns same as MediaQuery.of(context).size\n  Size get sizePx => mq.size;\n\n  /// Returns same as MediaQuery.of(context).size.width\n  double get widthPx => sizePx.width;\n\n  /// Returns same as MediaQuery.of(context).height\n  double get heightPx => sizePx.height;\n\n  /// Returns diagonal screen pixels\n  double get diagonalPx {\n    final Size s = sizePx;\n    return sqrt((s.width * s.width) + (s.height * s.height));\n  }\n\n  /// Returns fraction (0-1) of screen width in pixels\n  double widthPct(double fraction) => fraction * widthPx;\n\n  /// Returns fraction (0-1) of screen height in pixels\n  double heightPct(double fraction) => fraction * heightPx;\n}\n"
+        }
+    ]
+}

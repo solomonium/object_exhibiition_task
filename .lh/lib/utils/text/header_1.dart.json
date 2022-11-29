@@ -1,0 +1,30 @@
+{
+    "sourceFile": "lib/utils/text/header_1.dart",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1669666914285,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1669666923421,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,9 +25,9 @@\n     return Text(text,\n         textAlign: textAlign,\n         overflow: overflow,\n         maxLines: maxLines,\n-        style: Theme.of(context).textTheme.headline4\n+        style: Theme.of(context).textTheme.headline1\n         // TextStyle(\n         //   color: color,\n         //   fontSize: size,\n         //   fontWeight: FontWeight.bold,\n"
+                },
+                {
+                    "date": 1669666931458,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,9 +25,9 @@\n     return Text(text,\n         textAlign: textAlign,\n         overflow: overflow,\n         maxLines: maxLines,\n-        style: Theme.of(context).textTheme.headline1\n+        style: Theme.of(context).textTheme.headline3\n         // TextStyle(\n         //   color: color,\n         //   fontSize: size,\n         //   fontWeight: FontWeight.bold,\n"
+                },
+                {
+                    "date": 1669666950816,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,17 +21,19 @@\n       : super(key: key);\n \n   @override\n   Widget build(BuildContext context) {\n-    return Text(text,\n-        textAlign: textAlign,\n-        overflow: overflow,\n-        maxLines: maxLines,\n-        style: Theme.of(context).textTheme.headline3\n-        // TextStyle(\n-        //   color: color,\n-        //   fontSize: size,\n-        //   fontWeight: FontWeight.bold,\n-        // ),\n-        );\n+    return Text(\n+      text,\n+      textAlign: textAlign,\n+      overflow: overflow,\n+      maxLines: maxLines,\n+      style:\n+          // Theme.of(context).textTheme.headline3\n+          TextStyle(\n+        color: color,\n+        fontSize: size,\n+        fontWeight: FontWeight.bold,\n+      ),\n+    );\n   }\n }\n"
+                }
+            ],
+            "date": 1669666914285,
+            "name": "Commit-0",
+            "content": "import 'package:flutter/material.dart';\n\nclass HeaderOne extends StatelessWidget {\n  double size;\n  final String text;\n  final Color? color;\n  final TextAlign? textAlign;\n  TextTheme? textTheme;\n  TextOverflow? overflow;\n  int? maxLines;\n\n  HeaderOne(\n      {Key? key,\n      this.size = 36,\n      required this.text,\n      this.textAlign = TextAlign.left,\n      this.textTheme,\n      this.overflow,\n      this.maxLines,\n      this.color})\n      : super(key: key);\n\n  @override\n  Widget build(BuildContext context) {\n    return Text(text,\n        textAlign: textAlign,\n        overflow: overflow,\n        maxLines: maxLines,\n        style: Theme.of(context).textTheme.headline4\n        // TextStyle(\n        //   color: color,\n        //   fontSize: size,\n        //   fontWeight: FontWeight.bold,\n        // ),\n        );\n  }\n}\n"
+        }
+    ]
+}
