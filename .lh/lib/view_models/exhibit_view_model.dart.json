@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 71,
+            "activePatchIndex": 72,
             "patches": [
                 {
                     "date": 1669673389708,
@@ -292,6 +292,10 @@
                 {
                     "date": 1669689758570,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,11 +25,9 @@\n \n   Future<dynamic> getExhibitListFuture() async {\n     final response = await getExhibitionListService.getExhibitList();\n \n-    final jsonResponse = (json.decode(response.body) as List)\n-        .map((i) => Exhibit.fromJson(i))\n-        .toList();\n+    final jsonResponse = json.decode(response.body);\n \n     notifyListeners();\n     return jsonResponse;\n   }\n"
+                },
+                {
+                    "date": 1669724453303,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,27 +21,5 @@\n \n     notifyListeners();\n     return exhibit!;\n   }\n-\n-  Future<dynamic> getExhibitListFuture() async {\n-    final response = await getExhibitionListService.getExhibitList();\n-\n-    final jsonResponse = json.decode(response.body);\n-\n-    notifyListeners();\n-    return jsonResponse;\n-  }\n }\n-\n-  // Future<List> getExhibitList() async {\n-  //   try {\n-  //     log('Retrieving photos - remote data...');\n-  //     // final res = await ApiRequest.get(photoPointer);\n-  //     final response = await getExhibitionListService.getExhibitList();\n-  //     // List jsonResponse = json.decode(response.body);\n-  //     return exhibitResponseFromMap(response.body);\n-  //   } catch (e) {\n-  //     log('Error fetching data...');\n-  //     rethrow;\n-  //   }\n-  // }\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1669673389708,

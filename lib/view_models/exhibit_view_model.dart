@@ -22,26 +22,4 @@ class ExhibitionModel extends BaseViewModel {
     notifyListeners();
     return exhibit!;
   }
-
-  Future<dynamic> getExhibitListFuture() async {
-    final response = await getExhibitionListService.getExhibitList();
-
-    final jsonResponse = json.decode(response.body);
-
-    notifyListeners();
-    return jsonResponse;
-  }
 }
-
-  // Future<List> getExhibitList() async {
-  //   try {
-  //     log('Retrieving photos - remote data...');
-  //     // final res = await ApiRequest.get(photoPointer);
-  //     final response = await getExhibitionListService.getExhibitList();
-  //     // List jsonResponse = json.decode(response.body);
-  //     return exhibitResponseFromMap(response.body);
-  //   } catch (e) {
-  //     log('Error fetching data...');
-  //     rethrow;
-  //   }
-  // }

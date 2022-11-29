@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 55,
+            "activePatchIndex": 57,
             "patches": [
                 {
                     "date": 1669680330497,
@@ -228,6 +228,14 @@
                 {
                     "date": 1669712239549,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,8 +21,11 @@\n \n   @override\n   Widget build(BuildContext context) {\n     return Consumer<ExhibitionModel>(builder: (context, data, _) {\n+      if (data.exhibit!.isEmpty) {\n+        return const SizedBox();\n+      }\n       return SafeArea(\n         child: Scaffold(\n           key: scaffoldKey,\n           // backgroundColor: Colors.lightBlue.withOpacity(0.9),\n@@ -55,11 +58,11 @@\n                       child: ListView.builder(\n                           shrinkWrap: true,\n                           itemCount: data.exhibit!.length,\n                           itemBuilder: (BuildContext context, int index) {\n-                            // data.exhibit!.isEmpty\n-                            //     ? const CircularProgressIndicator()\n-                            // :\n+                            //  index >= 0\n+                            //       ? const CircularProgressIndicator()\n+                            //   :\n                             return Column(\n                               crossAxisAlignment: CrossAxisAlignment.start,\n                               children: [\n                                 HeaderTwo(text: data.exhibit![index].title),\n"
+                },
+                {
+                    "date": 1669713591680,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,14 +9,21 @@\n   State<HomeWithModel> createState() => _HomeWithModelState();\n }\n \n class _HomeWithModelState extends State<HomeWithModel> {\n+  late Future<dynamic> exhibitData;\n   @override\n   void initState() {\n-    context.read<ExhibitionModel>().getExhibitList();\n+    exhibitData;\n+\n+    // context.read<ExhibitionModel>().getExhibitList();\n     super.initState();\n   }\n \n+  Future initializeExhibition() async {\n+    Provider.of<ExhibitionModel>(context).getExhibitList();\n+  }\n+\n   TextEditingController searchController = TextEditingController();\n   final scaffoldKey = GlobalKey<ScaffoldState>();\n \n   @override\n"
+                },
+                {
+                    "date": 1669713601181,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n class _HomeWithModelState extends State<HomeWithModel> {\n   late Future<dynamic> exhibitData;\n   @override\n   void initState() {\n-    exhibitData;\n+    exhibitData = initializeExhibition();\n \n     // context.read<ExhibitionModel>().getExhibitList();\n     super.initState();\n   }\n"
                 }
             ],
             "date": 1669680330497,

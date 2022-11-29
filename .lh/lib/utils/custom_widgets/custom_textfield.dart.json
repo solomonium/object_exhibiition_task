@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 7,
+            "activePatchIndex": 10,
             "patches": [
                 {
                     "date": 1669666657268,
@@ -36,6 +36,18 @@
                 {
                     "date": 1669688075300,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,5 @@\n-import 'package:exhibition_task/utils/custom_widgets/helper_widgets.dart';\n-import 'package:flutter/material.dart';\n-import 'package:flutter/services.dart';\n-import '../text/normal_text.dart';\n+import 'package:exhibition_task/export.dart';\n \n class CustomTextField extends StatelessWidget {\n   Icon? icon;\n   TextInputType? textInputType;\n"
+                },
+                {
+                    "date": 1669725423913,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -90,9 +90,9 @@\n                     contentPadding: const EdgeInsets.symmetric(\n                         vertical: 15, horizontal: 16),\n                     focusedBorder: OutlineInputBorder(\n                         borderSide:\n-                            const BorderSide(color: Colors.white, width: 0.9),\n+                            const BorderSide(color: Colors.black, width: 0.9),\n                         borderRadius: BorderRadius.circular(12)),\n                     enabledBorder: OutlineInputBorder(\n                         borderSide:\n                             const BorderSide(color: Colors.black54, width: 0.9),\n"
+                },
+                {
+                    "date": 1669725509308,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -108,9 +108,9 @@\n                       fontSize: 16.0,\n                       height: 1,\n                       color: Colors.black54,\n                     ),\n-                    fillColor: Colors.white.withOpacity(0.0),\n+                    fillColor: Colors.black.withOpacity(0.0),\n                     suffixIcon: suffixIcon),\n               ),\n             ),\n           ),\n"
+                },
+                {
+                    "date": 1669725680517,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -63,9 +63,9 @@\n           Center(\n             child: SizedBox(\n               // height: 52,\n               child: TextFormField(\n-                style: const TextStyle(color: Colors.white),\n+                style: const TextStyle(color: Colors.black),\n                 maxLines: obscureText == true ? 1 : maxLines,\n                 controller: textController,\n                 textCapitalization: capitalization!,\n                 validator: validate,\n"
                 }
             ],
             "date": 1669666657267,

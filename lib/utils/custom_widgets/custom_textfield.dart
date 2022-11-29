@@ -64,7 +64,7 @@ class CustomTextField extends StatelessWidget {
             child: SizedBox(
               // height: 52,
               child: TextFormField(
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.black),
                 maxLines: obscureText == true ? 1 : maxLines,
                 controller: textController,
                 textCapitalization: capitalization!,
@@ -91,7 +91,7 @@ class CustomTextField extends StatelessWidget {
                         vertical: 15, horizontal: 16),
                     focusedBorder: OutlineInputBorder(
                         borderSide:
-                            const BorderSide(color: Colors.white, width: 0.9),
+                            const BorderSide(color: Colors.black, width: 0.9),
                         borderRadius: BorderRadius.circular(12)),
                     enabledBorder: OutlineInputBorder(
                         borderSide:
@@ -109,7 +109,7 @@ class CustomTextField extends StatelessWidget {
                       height: 1,
                       color: Colors.black54,
                     ),
-                    fillColor: Colors.white.withOpacity(0.0),
+                    fillColor: Colors.black.withOpacity(0.0),
                     suffixIcon: suffixIcon),
               ),
             ),

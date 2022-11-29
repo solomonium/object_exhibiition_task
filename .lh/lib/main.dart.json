@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 13,
+            "activePatchIndex": 14,
             "patches": [
                 {
                     "date": 1669663988147,
@@ -60,6 +60,10 @@
                 {
                     "date": 1669687740305,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,5 @@\n-import 'package:exhibition_task/route/route.dart';\n-import 'package:exhibition_task/utils/locator.dart';\n-import 'package:exhibition_task/view_models/exhibit_view_model.dart';\n-import 'package:flutter/material.dart' hide Router;\n-import 'package:provider/provider.dart';\n+import 'package:exhibition_task/export.dart';\n \n void main() async {\n   setupLocator();\n   runApp(MultiProvider(providers: [\n"
+                },
+                {
+                    "date": 1669724291729,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,8 @@\n   Widget build(BuildContext context) {\n     return MaterialApp(\n       debugShowCheckedModeBanner: false,\n       title: 'Exhibition List Task',\n-      // navigatorKey: locator<NavigationService>().navigationKey,\n       theme: ThemeData(\n         primarySwatch: Colors.blue,\n         useMaterial3: true,\n       ),\n"
                 }
             ],
             "date": 1669663988147,

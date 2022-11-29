@@ -10,10 +10,16 @@ class HomeWithModel extends StatefulWidget {
 }
 
 class _HomeWithModelState extends State<HomeWithModel> {
+  late Future<dynamic> exhibitData;
   @override
   void initState() {
-    context.read<ExhibitionModel>().getExhibitList();
+    exhibitData = initializeExhibition();
+
     super.initState();
+  }
+
+  Future initializeExhibition() async {
+    Provider.of<ExhibitionModel>(context).getExhibitList();
   }
 
   TextEditingController searchController = TextEditingController();
