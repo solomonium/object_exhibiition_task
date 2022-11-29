@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 8,
+            "activePatchIndex": 9,
             "patches": [
                 {
                     "date": 1669685036825,
@@ -40,6 +40,10 @@
                 {
                     "date": 1669689628364,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -51,9 +51,11 @@\n               SingleChildScrollView(\n                 child: SizedBox(\n                   height: context.heightPx * 0.75,\n                   child: FutureBuilder(\n-                      future: context.read<ExhibitionModel>().getExhibitList(),\n+                      future: context\n+                          .read<ExhibitionModel>()\n+                          .getExhibitListFuture(),\n                       builder: (BuildContext context, AsyncSnapshot snapshot) {\n                         if (snapshot.connectionState ==\n                             ConnectionState.waiting) {\n                           return const Center(\n"
+                },
+                {
+                    "date": 1669712368314,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n \n class _MyHomePageState extends State<MyHomePage> {\n   @override\n   void initState() {\n-    context.read<ExhibitionModel>().getExhibitList();\n+    // context.read<ExhibitionModel>().getExhibitList();\n     super.initState();\n   }\n \n   TextEditingController searchController = TextEditingController();\n"
                 }
             ],
             "date": 1669685036825,

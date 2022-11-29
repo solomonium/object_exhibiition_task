@@ -22,6 +22,9 @@ class _HomeWithModelState extends State<HomeWithModel> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ExhibitionModel>(builder: (context, data, _) {
+      if (data.exhibit!.isEmpty) {
+        return const SizedBox();
+      }
       return SafeArea(
         child: Scaffold(
           key: scaffoldKey,
@@ -52,85 +55,75 @@ class _HomeWithModelState extends State<HomeWithModel> {
                 SingleChildScrollView(
                   child: SizedBox(
                       height: context.heightPx * 0.75,
-                      child:
-                          // data.exhibit!.isEmpty
-                          //     ? const CircularProgressIndicator()
-                          // :
-                          ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: data.exhibit!.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    HeaderTwo(text: data.exhibit![index].title),
-                                    Container(
-                                      height: context.heightPx * 0.15,
-                                      decoration: BoxDecoration(
-                                          color: Colors.black.withOpacity(0.06),
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          children: [
-                                            Expanded(
-                                              child: ListView.builder(
-                                                  physics:
-                                                      const AlwaysScrollableScrollPhysics(
-                                                          parent:
-                                                              BouncingScrollPhysics()),
-                                                  scrollDirection:
-                                                      Axis.horizontal,
-                                                  shrinkWrap: true,
-                                                  itemCount: data
-                                                      .exhibit![index]
-                                                      .images
-                                                      .length,
-                                                  itemBuilder:
-                                                      (BuildContext context,
-                                                          int index) {
-                                                    return Row(
-                                                      children: [
-                                                        Container(
-                                                            height: context
-                                                                    .heightPx *
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: data.exhibit!.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            //  index >= 0
+                            //       ? const CircularProgressIndicator()
+                            //   :
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                HeaderTwo(text: data.exhibit![index].title),
+                                Container(
+                                  height: context.heightPx * 0.15,
+                                  decoration: BoxDecoration(
+                                      color: Colors.black.withOpacity(0.06),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      children: [
+                                        Expanded(
+                                          child: ListView.builder(
+                                              physics:
+                                                  const AlwaysScrollableScrollPhysics(
+                                                      parent:
+                                                          BouncingScrollPhysics()),
+                                              scrollDirection: Axis.horizontal,
+                                              shrinkWrap: true,
+                                              itemCount: data.exhibit![index]
+                                                  .images.length,
+                                              itemBuilder:
+                                                  (BuildContext context,
+                                                      int index) {
+                                                return Row(
+                                                  children: [
+                                                    Container(
+                                                        height:
+                                                            context.heightPx *
                                                                 0.13,
-                                                            width:
-                                                                //  100,
-                                                                context.widthPx *
-                                                                    0.25,
-                                                            decoration: BoxDecoration(
-                                                                color: Colors
-                                                                    .red
-                                                                    .withOpacity(
-                                                                        0.6),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10)),
-                                                            child:
-                                                                Image.network(
-                                                              data
-                                                                      .exhibit![
-                                                                          index]
-                                                                      .images[
-                                                                  index],
-                                                              fit: BoxFit.cover,
-                                                            )),
-                                                        10.hSpace
-                                                      ],
-                                                    );
-                                                  }),
-                                            ),
-                                          ],
+                                                        width:
+                                                            //  100,
+                                                            context.widthPx *
+                                                                0.25,
+                                                        decoration: BoxDecoration(
+                                                            color: Colors.red
+                                                                .withOpacity(
+                                                                    0.6),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10)),
+                                                        child: Image.network(
+                                                          data.exhibit![index]
+                                                              .images[index],
+                                                          fit: BoxFit.cover,
+                                                        )),
+                                                    10.hSpace
+                                                  ],
+                                                );
+                                              }),
                                         ),
-                                      ),
+                                      ],
                                     ),
-                                    10.vSpace
-                                  ],
-                                );
-                              })),
+                                  ),
+                                ),
+                                10.vSpace
+                              ],
+                            );
+                          })),
                 ),
               ],
             ),
