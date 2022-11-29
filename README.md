@@ -20,4 +20,10 @@ For the sake of this project, both methods were simplified. This makes it possib
 
 The route is structured in a way that is switchable to test for each method
 
-Basically, Material3 designs template was used throughout the whole app implementation
+Basically, Material3 designs template was used throughout the whole app implementation.
+
+The search implementation is in progress and would be completed as soon as possible. This will enable the user to be able to search for exhibitions using the title of the object displayed
+
+To run the project,
+
+Clone from the repo and get packages when prompted
